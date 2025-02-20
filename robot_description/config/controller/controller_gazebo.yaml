@@ -1,0 +1,250 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # FL Controller
+    FL_hip_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    FL_thigh_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    FL_calf_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+
+    # FR Controller
+    FR_hip_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    FR_thigh_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    FR_calf_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+
+    # RL Controller
+    RL_hip_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    RL_thigh_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    RL_calf_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+
+    # RR Controller
+    RR_hip_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    RR_thigh_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+    RR_calf_controller:
+      type: unitree_gazebo_controller/UnitreeGazeboController
+
+# FL Controller
+FL_hip_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [FL_hip_joint]
+    position:
+      limit_upper: 0.80 # 46
+      limit_lower: -0.80 # 46
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 100.0
+      i: 0.0
+      d: 5.0
+FL_thigh_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [FL_thigh_joint]
+    position:
+      limit_upper: 4.19 # 240
+      limit_lower: -1.05 # 60
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0
+FL_calf_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [FL_calf_joint]
+    position:
+      limit_upper: -0.92 # 52.5
+      limit_lower: -2.70 # 154.5
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0
+
+# FR Controller
+FR_hip_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [FR_hip_joint]
+    position:
+      limit_upper: 0.80 # 46
+      limit_lower: -0.80 # 46
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 100.0
+      i: 0.0
+      d: 5.0
+FR_thigh_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [FR_thigh_joint]
+    position:
+      limit_upper: 4.19 # 240
+      limit_lower: -1.05 # 60
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0
+FR_calf_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [FR_calf_joint]
+    position:
+      limit_upper: -0.92 # 52.5
+      limit_lower: -2.70 # 154.5
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0
+
+# RL Controller
+RL_hip_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [RL_hip_joint]
+    position:
+      limit_upper: 0.80 # 46
+      limit_lower: -0.80 # 46
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 100.0
+      i: 0.0
+      d: 5.0
+RL_thigh_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [RL_thigh_joint]
+    position:
+      limit_upper: 4.19 # 240
+      limit_lower: -1.05 # 60
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0
+RL_calf_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [RL_calf_joint]
+    position:
+      limit_upper: -0.92 # 52.5
+      limit_lower: -2.70 # 154.5
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0
+
+# RR Controller
+RR_hip_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [RR_hip_joint]
+    position:
+      limit_upper: 0.80 # 46
+      limit_lower: -0.80 # 46
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 100.0
+      i: 0.0
+      d: 5.0
+RR_thigh_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [RR_thigh_joint]
+    position:
+      limit_upper: 4.19 # 240
+      limit_lower: -1.05 # 60
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0
+RR_calf_controller:
+  ros__parameters:
+    desired_cmd_timeout: 0.5
+    joint_name: [RR_calf_joint]
+    position:
+      limit_upper: -0.92 # 52.5
+      limit_lower: -2.70 # 154.5
+    velocity:
+      limit_upper: 21.0
+      limit_lower: -21.0
+    effort:
+      limit_upper: 35.0
+      limit_lower: -35.0
+    pid:
+      p: 300.0
+      i: 0.0
+      d: 8.0

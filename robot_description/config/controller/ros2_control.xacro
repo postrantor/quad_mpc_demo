@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <parameters>$(find robot_description)/config/controller/controller_gazebo.yaml</parameters>
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+      <controller_manager_name>controller_manager</controller_manager_name>
+    </plugin>
+  </gazebo>
+
+  <xacro:macro name="use_ros2_control" params="use_mock_hardware">
+    <ros2_control name="UnitreeSystem" type="system">
+      <!-- for gazebo control -->
+      <xacro:if value="${use_mock_hardware}">
+        <hardware>
+          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+        <!-- controller_interface<->hardware_interface -->
+        <!-- FL_joint -->
+        <joint name="FL_hip_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="FL_thigh_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="FL_calf_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+
+        <!-- FR_joint -->
+        <joint name="FR_hip_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="FR_thigh_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="FR_calf_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+
+        <!-- RL_joint -->
+        <joint name="RL_hip_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="RL_thigh_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="RL_calf_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+
+        <!-- RR_joint -->
+        <joint name="RR_hip_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="RR_thigh_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+        <joint name="RR_calf_joint">
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+      </xacro:if>
+
+      <!-- for real hardware initialize -->
+      <xacro:unless value="${use_mock_hardware}">
+        <hardware>
+          <plugin>unitree_motor_hardware/UnitreeMotorSystemHardware</plugin>
+          <param name="hw_start_interval_millisec">200</param>
+          <param name="hw_stop_interval_millisec">100</param>
+          <param name="hw_unitree_fl_legged">/dev/unitree_fl_legged</param>
+          <param name="hw_unitree_fr_legged">/dev/unitree_fr_legged</param>
+          <param name="hw_unitree_rl_legged">/dev/unitree_rl_legged</param>
+          <param name="hw_unitree_rr_legged">/dev/unitree_rr_legged</param>
+        </hardware>
+
+        <!-- controller_interface<->hardware_interface -->
+        <!-- FL_joint -->
+        <joint name="FL_hip_joint">
+          <!-- cmd initial_value should be set 0.0, motor will be set to "Zero torque mode" -->
+          <!-- the resistance of the output shaft is significantly smaller than the resistance when it is not turned on -->
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">0</param>
+          <param name="serial_port_id">unitree_fl_legged</param>
+        </joint>
+        <joint name="FL_thigh_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">1</param>
+          <param name="serial_port_id">unitree_fl_legged</param>
+        </joint>
+        <joint name="FL_calf_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">2</param>
+          <param name="serial_port_id">unitree_fl_legged</param>
+        </joint>
+
+        <!-- FR_joint -->
+        <joint name="FR_hip_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">0</param>
+          <param name="serial_port_id">unitree_fr_legged</param>
+        </joint>
+        <joint name="FR_thigh_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">1</param>
+          <param name="serial_port_id">unitree_fr_legged</param>
+        </joint>
+        <joint name="FR_calf_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">2</param>
+          <param name="serial_port_id">unitree_fr_legged</param>
+        </joint>
+
+        <!-- RL_joint -->
+        <joint name="RL_hip_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">0</param>
+          <param name="serial_port_id">unitree_rl_legged</param>
+        </joint>
+        <joint name="RL_thigh_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">1</param>
+          <param name="serial_port_id">unitree_rl_legged</param>
+        </joint>
+        <joint name="RL_calf_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">2</param>
+          <param name="serial_port_id">unitree_rl_legged</param>
+        </joint>
+
+        <!-- RR_joint -->
+        <joint name="RR_hip_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">0</param>
+          <param name="serial_port_id">unitree_rr_legged</param>
+        </joint>
+        <joint name="RR_thigh_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">1</param>
+          <param name="serial_port_id">unitree_rr_legged</param>
+        </joint>
+        <joint name="RR_calf_joint">
+          <command_interface name="position">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kp">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="kd">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <command_interface name="effort">
+            <param name="initial_value">0.0</param>
+          </command_interface>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+          <param name="motor_id">2</param>
+          <param name="serial_port_id">unitree_rr_legged</param>
+        </joint>
+      </xacro:unless>
+    </ros2_control>
+  </xacro:macro>
+</robot>

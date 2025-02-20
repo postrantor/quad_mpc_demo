@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<robot name="robot_a1"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ROS2 is different ROS1, should be use sdf_ -->
+  <gazebo reference="imu_link">
+    <!-- maybe no use -->
+    <gravity>true</gravity>
+    <!-- https://classic.gazebosim.org/tutorials?tut=ros_gzplugins#IMUsensor(GazeboRosImuSensor) -->
+    <!-- https://classic.gazebosim.org/tutorials?tut=ros2_overview&cat=connect_ros -->
+    <sensor name="my_imu" type="imu">
+      <!-- ensure the sensor is active (required) -->
+      <always_on>true</always_on>
+      <update_rate>1000</update_rate>
+      <plugin name="my_imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <namespace>/sensors</namespace>
+          <remapping>~/out:=imu</remapping>
+        </ros>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- foot contacts. -->
+  <!-- https://classic.gazebosim.org/tutorials?tut=force_torque_sensor -->
+  <gazebo>
+    <plugin name="FR_foot_contact" filename="libgazebo_ros_ft_sensor.so">
+      <ros>
+        <namespace>/visual/FR_foot_contact</namespace>
+        <!-- <remapping>wrench:=the_force</remapping> -->
+      </ros>
+      <frame_name>FR_thigh</frame_name>
+      <update_rate>1000</update_rate>
+      <body_name>FR_calf</body_name>
+      <gaussian_noise>0.01</gaussian_noise>
+    </plugin>
+    <plugin name="FL_foot_contact" filename="libgazebo_ros_ft_sensor.so">
+      <ros>
+        <namespace>/visual/FL_foot_contact</namespace>
+        <!-- <remapping>wrench:=the_force</remapping> -->
+      </ros>
+      <frame_name>FL_thigh</frame_name>
+      <update_rate>1000</update_rate>
+      <body_name>FL_calf</body_name>
+      <gaussian_noise>0.01</gaussian_noise>
+    </plugin>
+    <plugin name="RR_foot_contact" filename="libgazebo_ros_ft_sensor.so">
+      <ros>
+        <namespace>/visual/RR_foot_contact</namespace>
+        <!-- <remapping>wrench:=the_force</remapping> -->
+      </ros>
+      <frame_name>RR_thigh</frame_name>
+      <update_rate>1000</update_rate>
+      <body_name>RR_calf</body_name>
+      <gaussian_noise>0.01</gaussian_noise>
+    </plugin>
+    <plugin name="RL_foot_contact" filename="libgazebo_ros_ft_sensor.so">
+      <ros>
+        <namespace>/visual/RL_foot_contact</namespace>
+        <!-- <remapping>wrench:=the_force</remapping> -->
+      </ros>
+      <frame_name>RL_thigh</frame_name>
+      <update_rate>1000</update_rate>
+      <body_name>RL_calf</body_name>
+      <gaussian_noise>0.01</gaussian_noise>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base">
+    <material>Gazebo/Green</material>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="trunk">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+
+  <gazebo reference="stick_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="imu_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <!-- FL leg -->
+  <gazebo reference="FL_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="FL_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="FL_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="FL_foot">
+    <mu1>${foot_mu}</mu1>
+    <mu2>${foot_mu}</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+
+  <!-- FR leg -->
+  <gazebo reference="FR_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="FR_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="FR_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="FR_foot">
+    <mu1>${foot_mu}</mu1>
+    <mu2>${foot_mu}</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+
+  <!-- RL leg -->
+  <gazebo reference="RL_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="RL_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="RL_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="RL_foot">
+    <mu1>${foot_mu}</mu1>
+    <mu2>${foot_mu}</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+
+  <!-- RR leg -->
+  <gazebo reference="RR_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="RR_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="RR_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="RR_foot">
+    <mu1>${foot_mu}</mu1>
+    <mu2>${foot_mu}</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+</robot>

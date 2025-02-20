@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>example_mpc</name>
+  <version>0.1.0</version>
+  <description>The example package for ros2</description>
+
+  <maintainer email="postrantor@gmail.com">postrantor</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>backward_ros</depend>
+  <depend>unitree_sdk</depend>
+  <depend>quadruped</depend>
+  <depend>unitree_msgs</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>ament_index_cpp</depend>
+  <depend>rmw_cyclonedds_cpp</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
